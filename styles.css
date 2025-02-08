@@ -16,6 +16,10 @@ body {
     transition: background 0.3s ease-in-out;
 }
 
+body {
+    background: url('waves.png') no-repeat center center/cover;
+}
+
 /* Dark Mode */
 body.dark {
     background-color: #1e1e1e;
