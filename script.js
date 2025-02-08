@@ -160,11 +160,6 @@ document.getElementById("mood-tracker-btn").addEventListener("click", () => {
 });
 
 
-
-
-
-
-
 // Open Login Modal
 function openLogin() {
     document.getElementById("login-modal").style.display = "flex";
@@ -341,32 +336,80 @@ function analyzeMood(response) {
     if (response.includes("not feeling good") || response.includes("not happy") || response.includes("feeling bad")) {
         message = "I'm sorry you're feeling this way. It's okay to have tough days. Maybe talking to a friend or practicing self-care can help.";
         selfCareTip = 'Remember to take breaks and do something you enjoy, like reading a book or taking a walk.';
+        imageUrl = "https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif"; // Sad GIF
     } else if (response.includes("not great") || response.includes("not okay") || response.includes("not well")) {
         message = "I'm here for you. Try taking a break, listening to music, or doing something you enjoy.";
         selfCareTip = 'Consider practicing deep breathing exercises or meditation to relax.';
+        imageUrl = "https://media.giphy.com/media/l1J9u3TZfpmeDLkDq/giphy.gif"; // Relaxing GIF
     } else if (/(happy|good|great|joyful|excited)/.test(response) && !/(not happy|not good)/.test(response)) {
         message = "That's wonderful! Keep up the positivity. Maybe treat yourself to something nice today!";
         selfCareTip = 'Celebrate your happiness by doing something you love, like a hobby or spending time with loved ones.';
+        imageUrl = "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"; // Happy GIF
     } else if (/(sad|down|unhappy|depressed)/.test(response)) {
         message = "I'm sorry to hear that. You're not alone. Try listening to your favorite music or reaching out to someone you trust.";
         selfCareTip = 'Write down your thoughts and feelings in a journal to help process your emotions.';
+        imageUrl = "https://media.giphy.com/media/Z5zuypybI5dYc/giphy.gif"; // Comforting GIF
     } else if (/(stressed|overwhelmed|anxious|worried)/.test(response)) {
         message = "It sounds like you’re under a lot of pressure. Deep breathing, a short walk, or mindfulness exercises might help.";
         selfCareTip = 'Try this: Inhale deeply through your nose for 4 seconds, hold for 7 seconds, and exhale slowly through your mouth for 8 seconds.';
+        imageUrl = "https://media.giphy.com/media/QBd2kLB5qDmysEXre9/giphy.gif"; // Stress relief GIF
     } else if (/(angry|frustrated|annoyed|irritated)/.test(response)) {
         message = "I understand that things can be frustrating. Maybe try relaxation exercises, journaling, or talking it out with someone.";
         selfCareTip = 'Physical activity like a quick workout or stretching can help release built-up tension.';
+        imageUrl = "https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif"; // Angry GIF
     } else if (/(tired|exhausted|burned out|drained)/.test(response)) {
         message = "Rest is important! Make sure to take breaks, stay hydrated, and get enough sleep.";
         selfCareTip = 'Establish a relaxing bedtime routine to improve sleep quality, like dimming the lights and avoiding screens before bed.';
+        imageUrl = "https://media.giphy.com/media/d2lcHJTG5Tscg/giphy.gif"; // Sleepy GIF
     } else {
         message = "I appreciate you sharing that. Remember, self-care is important. Would you like a self-care tip?";
         selfCareTip = 'Taking short breaks during work or study sessions can help improve focus and productivity.';
+        imageUrl = "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif"; // General Self-Care GIF
     }
 
-    return { message, selfCareTip };
+    return { message, selfCareTip, imageUrl };
 }
 
+// Updated Respond to User Function
+function respondToUser(userMessage) {
+    const response = analyzeMood(userMessage);
+    addMessage("bot", response.message, response.imageUrl);
+    saveConversation("bot", response.message);
+
+    if (response.selfCareTip) {
+        setTimeout(() => {
+            addMessage("bot", response.selfCareTip);
+            saveConversation("bot", response.selfCareTip);
+        }, 1000);
+    }
+
+    setupQuickReplies(); // Update quick replies after response
+}
+
+// Updated Add Message Function to Support Images/GIFs
+function addMessage(sender, text, imageUrl = "") {
+    const chatBox = document.getElementById("chat-box");
+    const messageDiv = document.createElement("div");
+
+    messageDiv.classList.add("message", sender === "user" ? "user-message" : "bot-message");
+    messageDiv.textContent = text;
+
+    chatBox.appendChild(messageDiv);
+
+    // If there's an image, add it to the chat
+    if (imageUrl) {
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        img.alt = "Mood Image";
+        img.style.maxWidth = "200px"; // Adjust image size
+        img.style.borderRadius = "10px"; // Add rounded corners
+        img.style.marginTop = "5px";
+
+        chatBox.appendChild(img);
+    }
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
 // Save Conversation to Local Storage
 function saveConversation(sender, message) {
     let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];

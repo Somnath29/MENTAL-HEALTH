@@ -46,8 +46,41 @@
             </label>
             <p>Dark Mode</p>
         </div>
+    <!-- Add FAQ Button in the top right corner -->
+<div class="top-right-buttons">
+    <button class="faq-btn" onclick="window.location.href='faq.html'">❓ FAQ</button>
+</div>
+    
+<style>
+/* Style for the FAQ Button */
+.top-right-buttons {
+    position: fixed;  /* Fixed to stay in the same spot */
+    bottom: 20px;    /* Moves it to the bottom */
+    right: 20px;     /* Moves it to the right */
+    display: flex;
+    gap: 10px;
+    z-index: 1000;   /* Ensures it stays above other content */
+}
 
-        <!-- Chatbox -->
+.faq-btn {
+    background: #17a2b8;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.faq-btn:hover {
+    background: #138496;
+    transform: scale(1.1);
+}
+</style>
+
+<!-- Chatbox -->
         <div class="chat-container">
             
             <div class="chat-header">
@@ -73,8 +106,6 @@
                 <button onclick="sendMessage()">Send</button>
                   
             </div>
-
-
 
             <!-- Mood Tracker Button -->
 <button id="mood-tracker-btn" class="mood-tracker-btn">📊 Mood Tracker</button>
@@ -115,12 +146,7 @@
         <h3>🔥 Streak: <span id="streak-counter">0</span> Days</h3>
     </div>
 </div>
-
-
-
             <script src="script.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
             <!-- Self-Care Tips -->
             <button class="self-care-btn" onclick="window.location.href='selfcare.html'">💡 Self-Care Tips</button>
             <button id="new-chat-btn" class="new-chat-btn">🆕 New Chat</button>
