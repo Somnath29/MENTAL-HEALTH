@@ -1,3 +1,6 @@
+<!-- login page add --> 
+ <!-- mood tracker -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +16,9 @@
 <div class="login-container">
     <button class="login-btn" onclick="openLogin()">Login</button>
 </div>
+
+
+
 
 <!-- Login Modal -->
 <div id="login-modal" class="login-modal">
@@ -67,10 +73,35 @@
                 <button onclick="sendMessage()">Send</button>
                   
             </div>
+
+            <!-- Mood Tracker Button -->
+<button id="mood-tracker-btn" class="mood-tracker-btn">📊 Mood Tracker</button>
+
+<!-- Mood Tracker Modal -->
+<div id="mood-modal" class="login-modal">
+    <div class="login-modal-content">
+        <span class="login-close-btn" onclick="closeMoodTracker()">&times;</span>
+        <h2>Track Your Mood</h2>
+        <label for="mood-select">How are you feeling today?</label>
+        <select id="mood-select">
+            <option value="happy">😊 Happy</option>
+            <option value="sad">😢 Sad</option>
+            <option value="stressed">😟 Stressed</option>
+            <option value="tired">😴 Tired</option>
+            <option value="anxious">😨 Anxious</option>
+        </select>
+        <button onclick="saveMood()">Save Mood</button>
+
+        <h3>Past Mood Entries:</h3>
+        <ul id="mood-history"></ul>
+    </div>
+</div>
             <script src="script.js"></script>
             <!-- Self-Care Tips -->
             <button class="self-care-btn" onclick="window.location.href='selfcare.html'">💡 Self-Care Tips</button>
             <button id="new-chat-btn" class="new-chat-btn">🆕 New Chat</button>
+
+            
 
         </div>
     </div>

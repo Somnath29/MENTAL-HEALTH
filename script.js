@@ -1,3 +1,45 @@
+// Open Mood Tracker Modal
+document.getElementById("mood-tracker-btn").addEventListener("click", () => {
+    document.getElementById("mood-modal").style.display = "flex";
+    loadMoodHistory();
+});
+
+// Close Mood Tracker Modal
+function closeMoodTracker() {
+    document.getElementById("mood-modal").style.display = "none";
+}
+
+// Save Mood Entry
+function saveMood() {
+    const mood = document.getElementById("mood-select").value;
+    const date = new Date().toLocaleDateString();
+
+    let moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+    moodHistory.push({ date, mood });
+    localStorage.setItem("moodHistory", JSON.stringify(moodHistory));
+
+    alert("Mood saved successfully!");
+    loadMoodHistory();
+}
+
+// Load Mood History
+function loadMoodHistory() {
+    const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+    const moodList = document.getElementById("mood-history");
+    moodList.innerHTML = "";
+
+    moodHistory.forEach(entry => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${entry.date}: ${entry.mood}`;
+        moodList.appendChild(listItem);
+    });
+}
+
+
+
+
+
+
 // Open Login Modal
 function openLogin() {
     document.getElementById("login-modal").style.display = "flex";

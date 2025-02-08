@@ -1,3 +1,38 @@
+/* Mood Tracker Button */
+.mood-tracker-btn {
+    background: #673AB7;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 20px;
+    width: 100%;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.mood-tracker-btn:hover {
+    background: #5E35B1;
+}
+
+/* Mood History List */
+#mood-history {
+    list-style: none;
+    padding: 0;
+}
+
+#mood-history li {
+    background: #f4f4f4;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+
+
+
 /* Login Button Styling */
 .login-container {
     position: fixed;
