@@ -3,6 +3,28 @@ document.addEventListener("DOMContentLoaded", () => {
     loadConversation();
     setupQuickReplies();
 });
+document.addEventListener("DOMContentLoaded", () => {
+    // Dark Mode Toggle
+    const themeSwitch = document.getElementById("theme-switch");
+
+    // Load saved theme preference
+    if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark");
+        themeSwitch.checked = true;
+    }
+
+    // Toggle dark mode on switch change
+    themeSwitch.addEventListener("change", function () {
+        document.body.classList.toggle("dark", this.checked);
+        localStorage.setItem("darkMode", this.checked);
+    });
+
+    // Existing chatbot initialization
+    addMessage("bot", "Hello! I'm here to check in on you. How are you feeling today?");
+    loadConversation();
+    setupQuickReplies();
+});
+
 
 // Send User Message
 function sendMessage() {
@@ -163,8 +185,9 @@ document.getElementById("theme-toggle").addEventListener("change", function() {
     localStorage.setItem("darkMode", this.checked);
 });
 
+
 // Load Theme Preference
 if (localStorage.getItem("darkMode") === "true") {
     document.body.classList.add("dark");
-    document.getElementById("theme-toggle").checked = true;
+    document.getElementById("theme-switch").checked = true;
 }
