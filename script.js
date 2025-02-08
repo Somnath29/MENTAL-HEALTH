@@ -1,3 +1,22 @@
+// Open Login Modal
+function openLogin() {
+    document.getElementById("login-modal").style.display = "flex";
+}
+
+// Close Login Modal
+function closeLogin() {
+    document.getElementById("login-modal").style.display = "none";
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById("login-modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
+
 // Create a new SpeechRecognition instance
 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 

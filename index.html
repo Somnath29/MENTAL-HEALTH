@@ -9,6 +9,28 @@
 </head>
 <body>
 
+     <!-- Login Button -->
+<div class="login-container">
+    <button class="login-btn" onclick="openLogin()">Login</button>
+</div>
+
+<!-- Login Modal -->
+<div id="login-modal" class="login-modal">
+    <div class="login-modal-content">
+        <span class="login-close-btn" onclick="closeLogin()">&times;</span>
+        <h2>Login</h2>
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+
     <div class="container">
         <!-- Dark Mode Toggle -->
         <div class="theme-toggle">
