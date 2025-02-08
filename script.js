@@ -1,3 +1,42 @@
+// Create a new SpeechRecognition instance
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+// Set language for recognition (optional)
+recognition.lang = 'en-US';
+recognition.continuous = false; // Stop after recognizing a single utterance
+recognition.interimResults = false; // Do not show intermediate results while speaking
+
+// Event listener for when speech recognition produces results
+recognition.onresult = function(event) {
+    // Get the recognized speech (transcript)
+    const transcript = event.results[0][0].transcript;
+
+    // Set the input field value with the recognized speech
+    document.getElementById('user-input').value = transcript;
+};
+
+// Start voice input when the button is clicked
+function startVoiceInput() {
+    recognition.start();
+}
+
+// Optional: Handle when recognition ends
+recognition.onend = function() {
+    console.log('Speech recognition has ended.');
+};
+
+// Optional: Handle any errors
+recognition.onerror = function(event) {
+    console.error('Error occurred in recognition: ', event.error);
+};
+
+// Optional: Handle key press events (if needed for further functionality)
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        console.log('Enter key pressed: ' + document.getElementById('user-input').value);
+    }
+}
+//the above part is for speech recognition.
 document.addEventListener("DOMContentLoaded", () => {
     addMessage("bot", "Hello! I'm here to check in on you. How are you feeling today?");
     loadConversation();
