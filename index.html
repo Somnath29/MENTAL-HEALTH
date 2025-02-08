@@ -74,6 +74,8 @@
                   
             </div>
 
+
+
             <!-- Mood Tracker Button -->
 <button id="mood-tracker-btn" class="mood-tracker-btn">📊 Mood Tracker</button>
 
@@ -82,6 +84,7 @@
     <div class="login-modal-content">
         <span class="login-close-btn" onclick="closeMoodTracker()">&times;</span>
         <h2>Track Your Mood</h2>
+        
         <label for="mood-select">How are you feeling today?</label>
         <select id="mood-select">
             <option value="happy">😊 Happy</option>
@@ -90,13 +93,34 @@
             <option value="tired">😴 Tired</option>
             <option value="anxious">😨 Anxious</option>
         </select>
+
+        <label for="mood-note">Write a Note:</label>
+        <textarea id="mood-note" rows="3" placeholder="Describe your feelings..."></textarea>
+
         <button onclick="saveMood()">Save Mood</button>
 
         <h3>Past Mood Entries:</h3>
         <ul id="mood-history"></ul>
+
+        <h3>💡 Self-Care Tip:</h3>
+        <p id="self-care-tip"></p>
+
+        <h3>📊 Mood Trends:</h3>
+        <canvas id="mood-chart"></canvas>
+        <h3>📊 Mood Trends:</h3>
+        <!-- new mood trends -->
+    <canvas id="mood-chart"></canvas>
+
+
+        <h3>🔥 Streak: <span id="streak-counter">0</span> Days</h3>
     </div>
 </div>
+
+
+
             <script src="script.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
             <!-- Self-Care Tips -->
             <button class="self-care-btn" onclick="window.location.href='selfcare.html'">💡 Self-Care Tips</button>
             <button id="new-chat-btn" class="new-chat-btn">🆕 New Chat</button>

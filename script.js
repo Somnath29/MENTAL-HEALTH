@@ -2,6 +2,8 @@
 document.getElementById("mood-tracker-btn").addEventListener("click", () => {
     document.getElementById("mood-modal").style.display = "flex";
     loadMoodHistory();
+    updateMoodChart();
+    updateStreak();
 });
 
 // Close Mood Tracker Modal
@@ -12,14 +14,17 @@ function closeMoodTracker() {
 // Save Mood Entry
 function saveMood() {
     const mood = document.getElementById("mood-select").value;
+    const note = document.getElementById("mood-note").value;
     const date = new Date().toLocaleDateString();
 
     let moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
-    moodHistory.push({ date, mood });
+    moodHistory.push({ date, mood, note });
     localStorage.setItem("moodHistory", JSON.stringify(moodHistory));
 
     alert("Mood saved successfully!");
     loadMoodHistory();
+    updateMoodChart();
+    updateStreak();
 }
 
 // Load Mood History
@@ -28,12 +33,132 @@ function loadMoodHistory() {
     const moodList = document.getElementById("mood-history");
     moodList.innerHTML = "";
 
-    moodHistory.forEach(entry => {
+    moodHistory.forEach((entry, index) => {
         const listItem = document.createElement("li");
-        listItem.textContent = `${entry.date}: ${entry.mood}`;
+        listItem.innerHTML = `${entry.date}: <strong>${entry.mood}</strong> - ${entry.note || "No note"}
+        <button onclick="deleteMood(${index})">🗑️</button>`;
         moodList.appendChild(listItem);
     });
+
+    showSelfCareTip();
 }
+
+// Delete Mood Entry
+function deleteMood(index) {
+    let moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+    moodHistory.splice(index, 1);
+    localStorage.setItem("moodHistory", JSON.stringify(moodHistory));
+    loadMoodHistory();
+    updateMoodChart();
+}
+
+// Show Self-Care Tip Based on Mood
+function showSelfCareTip() {
+    const mood = document.getElementById("mood-select").value;
+    let tip = "Remember to take care of yourself!";
+
+    if (mood === "happy") tip = "Keep up the positivity! Try sharing your happiness with others.";
+    if (mood === "sad") tip = "It's okay to feel sad. Try journaling or talking to a friend.";
+    if (mood === "stressed") tip = "Take deep breaths and step away for a break.";
+    if (mood === "tired") tip = "Make sure to get enough rest. Try a quick nap.";
+    if (mood === "anxious") tip = "Try meditation or a short walk to clear your mind.";
+
+    document.getElementById("self-care-tip").textContent = tip;
+}
+
+// Update Mood Trends Chart
+function updateMoodChart() {
+    const ctx = document.getElementById("mood-chart").getContext("2d");
+    const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+    const moodCounts = { happy: 0, sad: 0, stressed: 0, tired: 0, anxious: 0 };
+
+    moodHistory.forEach(entry => {
+        moodCounts[entry.mood]++;
+    });
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Happy", "Sad", "Stressed", "Tired", "Anxious"],
+            datasets: [{
+                label: "Mood Count",
+                data: [moodCounts.happy, moodCounts.sad, moodCounts.stressed, moodCounts.tired, moodCounts.anxious],
+                backgroundColor: ["#4CAF50", "#FF5733", "#FFC107", "#795548", "#03A9F4"],
+            }]
+        }
+    });
+}
+
+// Track Mood Streak
+function updateStreak() {
+    const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+    if (moodHistory.length === 0) return;
+
+    let streak = 1;
+    for (let i = moodHistory.length - 1; i > 0; i--) {
+        const today = new Date(moodHistory[i].date);
+        const prevDay = new Date(moodHistory[i - 1].date);
+        const diff = (today - prevDay) / (1000 * 60 * 60 * 24);
+
+        if (diff === 1) {
+            streak++;
+        } else {
+            break;
+        }
+    }
+
+    document.getElementById("streak-counter").textContent = streak;
+}
+
+
+
+
+
+
+// Update Mood Trends Chart
+function updateMoodChart() {
+    const ctx = document.getElementById("mood-chart").getContext("2d");
+    const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+
+    // Count each mood occurrence
+    const moodCounts = { happy: 0, sad: 0, stressed: 0, tired: 0, anxious: 0 };
+    moodHistory.forEach(entry => {
+        moodCounts[entry.mood]++;
+    });
+
+    // Destroy previous chart instance (if any)
+    if (window.moodChart) {
+        window.moodChart.destroy();
+    }
+
+    // Create new chart
+    window.moodChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Happy 😊", "Sad 😢", "Stressed 😟", "Tired 😴", "Anxious 😨"],
+            datasets: [{
+                label: "Mood Count",
+                data: [moodCounts.happy, moodCounts.sad, moodCounts.stressed, moodCounts.tired, moodCounts.anxious],
+                backgroundColor: ["#4CAF50", "#FF5733", "#FFC107", "#795548", "#03A9F4"],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
+
+// Call updateMoodChart() when the Mood Tracker is opened
+document.getElementById("mood-tracker-btn").addEventListener("click", () => {
+    document.getElementById("mood-modal").style.display = "flex";
+    loadMoodHistory();
+    updateMoodChart(); // Update the chart when opening the modal
+});
+
 
 
 

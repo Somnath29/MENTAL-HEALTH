@@ -1,3 +1,87 @@
+.login-modal-content {
+    background-color: white;
+}
+
+
+/* Mood Tracker Modal Content */
+#mood-modal .login-modal-content {
+    background: rgba(255, 255, 255, 0.2); /* Transparent background */
+    backdrop-filter: blur(10px); /* Glass effect */
+    border-radius: 12px;
+    padding: 20px;
+    color: #ffffff; /* Change text color to white */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Mood Tracker Heading */
+#mood-modal h2, #mood-modal h3 {
+    color: #ffeb3b; /* Bright yellow for visibility */
+}
+
+/* Mood Tracker Labels */
+#mood-modal label {
+    color: #fff; /* White labels */
+    font-weight: bold;
+}
+
+/* Mood Dropdown and Text Input */
+#mood-select, #mood-note {
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent input */
+    color: #fff; /* White text */
+    border: 1px solid #fff; /* White border */
+}
+
+/* Placeholder Text */
+#mood-note::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Mood History List */
+#mood-history {
+    list-style: none;
+    padding: 0;
+}
+
+/* Mood History Entries */
+#mood-history li {
+    background: rgba(0, 0, 0, 0.4); /* Dark transparent background */
+    color: #ffeb3b; /* Bright yellow text */
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px 0;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+/* Hover Effect for Mood Entries */
+#mood-history li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Mood Tracker Button */
 .mood-tracker-btn {
     background: #673AB7;
@@ -17,6 +101,16 @@
     background: #5E35B1;
 }
 
+/* Mood Note Input */
+#mood-note {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
 /* Mood History List */
 #mood-history {
     list-style: none;
@@ -28,7 +122,20 @@
     padding: 8px;
     margin: 5px 0;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+#mood-chart {
+    max-width: 100%;
+    height: 300px;
+    margin-top: 10px;
+} 
+
+
+
+
 
 
 
