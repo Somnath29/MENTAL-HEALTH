@@ -36,6 +36,16 @@ function handleKeyPress(event) {
         console.log('Enter key pressed: ' + document.getElementById('user-input').value);
     }
 }
+
+// enter key working
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevents accidental form submission
+        sendMessage();
+    }
+}
+
+
 //the above part is for speech recognition.
 document.addEventListener("DOMContentLoaded", () => {
     addMessage("bot", "Hello! I'm here to check in on you. How are you feeling today?");
@@ -45,6 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     // Dark Mode Toggle
     const themeSwitch = document.getElementById("theme-switch");
+document.getElementById("new-chat-btn").addEventListener("click", () => {
+    if (confirm("Are you sure you want to start a new chat? This will clear your conversation history.")) {
+        localStorage.removeItem("chatHistory"); // Remove saved chat history
+        document.getElementById("chat-box").innerHTML = ""; // Clear the chat box
+        addMessage("bot", "Hello! I'm here to check in on you. How are you feeling today?"); // Restart chat
+    }
+});
 
     // Load saved theme preference
     if (localStorage.getItem("darkMode") === "true") {

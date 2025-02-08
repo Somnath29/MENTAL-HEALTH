@@ -21,10 +21,13 @@
 
         <!-- Chatbox -->
         <div class="chat-container">
+            
             <div class="chat-header">
                 <h2>🧠 Mental Health Chatbot</h2>
             </div>
-            <div id="chat-box" class="chat-box"></div>
+            <div id="chat-box" class="chat-box">
+
+            </div>
 
             <!-- Quick Replies -->
             <div class="quick-replies">
@@ -37,12 +40,16 @@
             <!-- Input Area -->
             <div class="chat-input">
                 <input type="text" id="user-input" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+
                 <button onclick="startVoiceInput()">🎤</button>
-                <button onclick="sendMessage()">Send</button>  
+                <button onclick="sendMessage()">Send</button>
+                  
             </div>
             <script src="script.js"></script>
             <!-- Self-Care Tips -->
             <button class="self-care-btn" onclick="window.location.href='selfcare.html'">💡 Self-Care Tips</button>
+            <button id="new-chat-btn" class="new-chat-btn">🆕 New Chat</button>
+
         </div>
     </div>
 </body>

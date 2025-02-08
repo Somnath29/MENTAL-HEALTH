@@ -239,3 +239,20 @@ input:checked + .slider {
 input:checked + .slider::before {
     transform: translateX(14px);
 }
+.new-chat-btn {
+    background: #007bff;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 20px;
+    width: 100%;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.new-chat-btn:hover {
+    background: #0056b3;
+}
